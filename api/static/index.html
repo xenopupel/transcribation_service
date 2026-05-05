@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Transcribe Service</title>
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>Transcribe Service</h1>
+          <p id="limits">Загрузка настроек...</p>
+        </div>
+        <label class="toggle">
+          <input id="includeIvr" type="checkbox" />
+          <span>Включить IVR</span>
+        </label>
+      </header>
+
+      <section id="dropzone" class="dropzone" tabindex="0">
+        <input id="fileInput" type="file" multiple accept=".flac,.m4a,.mp3,.ogg,.wav" />
+        <div class="dropzone-title">Перетащите аудиофайлы сюда</div>
+        <div class="dropzone-subtitle">или нажмите, чтобы выбрать файлы</div>
+      </section>
+      <div id="notice" class="notice" role="status" aria-live="polite"></div>
+
+      <section class="actions">
+        <button id="uploadBtn" type="button" disabled>Запустить обработку</button>
+        <button id="downloadBtn" type="button" disabled>Скачать TXT архив</button>
+      </section>
+
+      <section class="progress-wrap">
+        <div class="progress-head">
+          <span id="progressLabel" class="progress-label">Файлы не выбраны</span>
+          <span id="progressCount">0 / 0</span>
+        </div>
+        <div class="progress">
+          <div id="progressBar"></div>
+        </div>
+      </section>
+
+      <section class="summary" aria-live="polite">
+        <div>
+          <div class="summary-value" id="selectedCount">0</div>
+          <div class="summary-label">выбрано</div>
+        </div>
+        <div>
+          <div class="summary-value" id="doneCount">0</div>
+          <div class="summary-label">готово</div>
+        </div>
+        <div>
+          <div class="summary-value" id="queueValue">-</div>
+          <div class="summary-label" id="queueLabel">очередь</div>
+        </div>
+        <div>
+          <div class="summary-value" id="errorCount">0</div>
+          <div class="summary-label">ошибки</div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

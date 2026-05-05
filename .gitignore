@@ -1,0 +1,28 @@
+.venv/
+.test_venv/
+venv/
+.vscode/
+.env
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test/tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local run outputs
+out/
+storage/
+
+# Local vendored dependency checkout
+GigaAM_v3_modified/
+notebooks/
