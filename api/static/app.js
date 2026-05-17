@@ -126,6 +126,10 @@ function allDone() {
   return state.items.length > 0 && state.items.every((item) => item.status === "done");
 }
 
+function canDownloadArchive() {
+  return doneItems().length > 0 && uploadItems().length === 0 && activeItems().length === 0;
+}
+
 function uploadProgressPercent() {
   const totalBytes = state.items.reduce((sum, item) => sum + item.file.size, 0);
   if (totalBytes === 0) {
@@ -191,6 +195,8 @@ function render() {
     progressLabel.textContent = `${done} из ${total} обработано. Сервис работает, страницу можно не обновлять`;
   } else if (allDone()) {
     progressLabel.textContent = "Все файлы обработаны, архив готов к скачиванию";
+  } else if (failed > 0 && done > 0) {
+    progressLabel.textContent = `Обработка завершилась с ошибками. Можно скачать ${done} успешных файлов`;
   } else if (failed > 0) {
     progressLabel.textContent = "Обработка завершилась с ошибками";
   } else {
@@ -205,7 +211,7 @@ function render() {
   notice.textContent = state.notice;
 
   uploadBtn.disabled = !allUploaded() || busy;
-  downloadBtn.disabled = !allDone();
+  downloadBtn.disabled = !canDownloadArchive();
 }
 
 function uploadFileToServer(item) {
@@ -327,7 +333,7 @@ function stopPolling() {
 }
 
 function downloadArchive() {
-  if (!allDone()) {
+  if (!canDownloadArchive()) {
     return;
   }
 

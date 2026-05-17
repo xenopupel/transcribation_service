@@ -190,6 +190,8 @@ def download_jobs_archive(job_id: list[str] = Query(...)) -> Response:
     with ZipFile(archive, "w", compression=ZIP_DEFLATED) as zip_file:
         for item in job_id:
             job = _get_job_or_404(item)
+            if job["status"] == "failed":
+                continue
             if job["status"] != "done":
                 raise HTTPException(
                     status_code=status.HTTP_409_CONFLICT,
